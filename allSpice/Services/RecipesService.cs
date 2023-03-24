@@ -14,5 +14,12 @@ namespace allSpice.Services
             List<Recipe> recipes = _repo.GetAllRecipes();
             return recipes;
         }
+
+        internal Recipe GetRecipeById(int id)
+        {
+            Recipe recipe = _repo.GetRecipeById(id);
+            if(recipe == null) throw new Exception("Recipe not found.");
+            return recipe;
+        }
     }
 }

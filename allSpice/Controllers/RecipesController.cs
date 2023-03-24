@@ -17,7 +17,21 @@ namespace allSpice.Controllers
             try 
             {
               List<Recipe> recipes = _recipesService.GetAllRecipes();
-              return recipes;
+              return Ok(recipes);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult <Recipe> GetRecipeById(int id)
+        {
+            try 
+            {
+              Recipe recipe = _recipesService.GetRecipeById(id);
+              return Ok(recipe);
             }
             catch (Exception e)
             {
