@@ -26,5 +26,13 @@ namespace allSpice.Services
             Recipe recipe = _repo.CreateRecipe(recipeData);
             return recipe;
         }
+
+        internal Recipe DeleteRecipe(int id, string userId)
+        {
+            Recipe recipe = this.GetRecipeById(id);
+            if(recipe.CreatorId != userId) throw new Exception("This is not your recipe to delete.");
+            _repo.DeleteRecipe(id);
+            return recipe;
+        }
     }
 }

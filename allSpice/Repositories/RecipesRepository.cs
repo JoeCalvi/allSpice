@@ -52,5 +52,15 @@ namespace allSpice.Repositories
             recipeData.Id = id;
             return recipeData;
         }
+
+        internal void DeleteRecipe(int id)
+        {
+            string sql = @"
+            DELETE FROM recipes
+            WHERE id = @id;
+            ";
+
+            _db.Execute(sql, new { id });
+        }
     }
 }
