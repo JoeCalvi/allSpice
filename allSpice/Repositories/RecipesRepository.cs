@@ -62,5 +62,21 @@ namespace allSpice.Repositories
 
             _db.Execute(sql, new { id });
         }
+
+        internal int EditRecipe(Recipe updatedRecipe)
+        {
+            string sql = @"
+            UPDATE recipes
+            SET
+            title = @title,
+            instructions = @instructions,
+            img = @img,
+            category = @category
+            WHERE id = @id;
+            ";
+
+            int rows = _db.Execute(sql, updatedRecipe);
+            return rows;
+        }
     }
 }

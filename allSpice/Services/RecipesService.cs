@@ -27,6 +27,20 @@ namespace allSpice.Services
             return recipe;
         }
 
+        internal Recipe EditRecipe(Recipe recipeData, string userId)
+        {
+            Recipe originalRecipe = this.GetRecipeById(recipeData.Id);
+            if(originalRecipe.CreatorId != userId) throw new Exception("You can only edit recipes that you created.");
+            originalRecipe.Title = recipeData.Title != null ? recipeData.Title : originalRecipe.Title;
+            originalRecipe.Instructions = recipeData.Instructions != null ? recipeData.Instructions : originalRecipe.Instructions;
+            originalRecipe.Img = recipeData.Img != null ? recipeData.Img : originalRecipe.Img;
+            originalRecipe.Category = recipeData.Category != null ? recipeData.Category : originalRecipe.Category;
+            int rowsAffected = _repo.EditRecipe(originalRecipe);
+            if(rowsAffected == 0) throw new Exception($"Could not edit {recipeData.Title} for some reason.");
+            if(rowsAffected > 1) throw new Exception("You somehow edited more than one recipe...");
+            return originalRecipe;
+        }
+
         internal Recipe DeleteRecipe(int id, string userId)
         {
             Recipe recipe = this.GetRecipeById(id);
@@ -34,5 +48,6 @@ namespace allSpice.Services
             _repo.DeleteRecipe(id);
             return recipe;
         }
+
     }
 }

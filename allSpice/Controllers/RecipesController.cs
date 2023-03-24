@@ -59,6 +59,24 @@ namespace allSpice.Controllers
             }
         }
 
+        [HttpPut("{id}")]
+        [Authorize]
+
+        async public Task<ActionResult<Recipe>> EditRecipe(int id, [FromBody] Recipe recipeData)
+        {
+            try 
+            {
+              Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+              recipeData.Id = id;
+              Recipe recipe = _recipesService.EditRecipe(recipeData, userInfo.Id);
+              return Ok(recipe);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
+
         [HttpDelete("{id}")]
         [Authorize]
         async public Task<ActionResult<Recipe>> DeleteRecipe(int id)
