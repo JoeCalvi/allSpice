@@ -21,5 +21,10 @@ namespace allSpice.Services
             if(recipe == null) throw new Exception("Recipe not found.");
             return recipe;
         }
+        internal Recipe CreateRecipe(Recipe recipeData)
+        {
+            Recipe recipe = _repo.CreateRecipe(recipeData);
+            return recipe;
+        }
     }
 }

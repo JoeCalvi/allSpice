@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS accounts;
 
 DELETE FROM
 accounts
-WHERE id = "";
+WHERE id = "641b636bc53b98bd6be93ce2";
 
 CREATE TABLE IF NOT EXISTS recipes(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -26,10 +26,13 @@ CREATE TABLE IF NOT EXISTS recipes(
 
 DROP TABLE recipes;
 
+DELETE FROM recipes
+WHERE id = 1;
+
 INSERT INTO recipes
-(title, instructions, img, category, `creatorId`)
+(title, instructions, img, category, `creatorId`, creator)
 VALUES
-('Delicious Pasta', 'Make the pasta it\'s not that hard.', 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2021/02/05/Baked-Feta-Pasta-4_s4x3.jpg.rend.hgtvcom.616.493.suffix/1615916524567.jpeg', 'Pasta', '641b636bc53b98bd6be93ce2');
+('Delicious Pasta', 'Make the pasta it\'s not that hard.', 'https://food.fnr.sndimg.com/content/dam/images/food/fullset/2021/02/05/Baked-Feta-Pasta-4_s4x3.jpg.rend.hgtvcom.616.493.suffix/1615916524567.jpeg', 'Pasta', '641b636bc53b98bd6be93ce2', '');
 
 CREATE TABLE IF NOT EXISTS ingredients(
   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'Ingredient Id',

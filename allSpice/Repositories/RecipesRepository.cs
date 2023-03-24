@@ -9,6 +9,7 @@ namespace allSpice.Repositories
             _db = db;
         }
 
+
         internal List<Recipe> GetAllRecipes()
         {
             string sql = @"
@@ -36,6 +37,20 @@ namespace allSpice.Repositories
                 return recipe;
             }, new { id }).FirstOrDefault();
             return recipe;
+        }
+
+        internal Recipe CreateRecipe(Recipe recipeData)
+        {
+            string sql = @"
+            INSERT INTO recipes
+            (creatorId, title, instructions, img, category)
+            VALUES
+            (@creatorId, @title, @instructions, @img, @category);
+            SELECT LAST_INSERT_ID();
+            ";
+            int id = _db.ExecuteScalar<int>(sql, recipeData);
+            recipeData.Id = id;
+            return recipeData;
         }
     }
 }
