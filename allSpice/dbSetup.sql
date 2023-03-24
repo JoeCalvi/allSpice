@@ -40,6 +40,11 @@ CREATE TABLE IF NOT EXISTS ingredients(
   FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+INSERT INTO ingredients
+(recipeId, name, quantity)
+VALUES
+('1', 'Paprika', '2 tsp');
+
 DROP TABLE IF EXISTS ingredients;
 
 CREATE TABLE IF NOT EXISTS favorites(
@@ -50,5 +55,10 @@ CREATE TABLE IF NOT EXISTS favorites(
   FOREIGN KEY (accountId) REFERENCES accounts(id) ON DELETE CASCADE,
   FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
+
+INSERT INTO favorites
+(accountId, recipeId)
+VALUES
+('641b636bc53b98bd6be93ce2', '1');
 
 DROP TABLE IF EXISTS favorites;
