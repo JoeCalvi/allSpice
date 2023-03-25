@@ -26,5 +26,21 @@ namespace allSpice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        [HttpPost]
+        [Authorize]
+
+        public ActionResult<Ingredient> AddIngredient([FromBody] Ingredient ingredientData)
+        {
+          try 
+          {
+            Ingredient ingredient = _ingredientsService.AddIngredient(ingredientData);
+            return Ok(ingredient);
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        }
     }
 }

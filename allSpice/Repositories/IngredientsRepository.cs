@@ -9,6 +9,21 @@ namespace allSpice.Repositories
             _db = db;
         }
 
+        internal Ingredient AddIngredient(Ingredient ingredientData)
+        {
+            string sql = @"
+            INSERT INTO ingredients
+            (recipeId, name, quantity)
+            VALUES
+            (@recipeId, @name, @quantity);
+            SELECT LAST_INSERT_ID();
+            ";
+
+            int id = _db.ExecuteScalar<int>(sql, ingredientData);
+            ingredientData.Id = id;
+            return ingredientData;
+        }
+
         internal List<Ingredient> GetAllIngredients()
         {
             string sql = @"
