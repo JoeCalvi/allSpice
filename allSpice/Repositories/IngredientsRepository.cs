@@ -24,6 +24,21 @@ namespace allSpice.Repositories
             return ingredientData;
         }
 
+        internal int EditIngredient(Ingredient updatedIngredient)
+        {
+            string sql = @"
+            UPDATE ingredients
+            SET
+            name = @name,
+            quantity = @quantity
+            WHERE
+            id = @id;
+            ";
+
+            int rows = _db.Execute(sql, updatedIngredient);
+            return rows;
+        }
+
         internal List<Ingredient> GetAllIngredients()
         {
             string sql = @"

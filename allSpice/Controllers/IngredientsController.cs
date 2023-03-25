@@ -42,5 +42,22 @@ namespace allSpice.Controllers
             return BadRequest(e.Message);
           }
         }
+
+        [HttpPut("{id}")]
+        [Authorize]
+        async public Task<ActionResult<Ingredient>> EditIngredient(int id, [FromBody] Ingredient ingredientData)
+        {
+          try 
+          {
+            Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+            ingredientData.Id = id;
+            Ingredient ingredient = _ingredientsService.EditIngredient(ingredientData, userInfo.Id);
+            return Ok(ingredient);
+          }
+          catch (Exception e)
+          {
+            return BadRequest(e.Message);
+          }
+        }
     }
 }
