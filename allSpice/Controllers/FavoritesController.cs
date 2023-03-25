@@ -45,5 +45,20 @@ namespace allSpice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        [Authorize]
+        public ActionResult<Favorite> GetOneFavorite(int id)
+        {
+            try 
+            {
+              Favorite favorite = _favoritesService.GetOneFavorite(id);
+              return Ok(favorite);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
     }
 }

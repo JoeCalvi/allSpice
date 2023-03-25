@@ -28,12 +28,42 @@ namespace allSpice.Repositories
         {
             string sql = @"
             SELECT
-            *
-            FROM favorites;
+            fav.*,
+            rec.*
+            FROM favorites fav
+            JOIN recipes rec ON fav.recipeId = rec.id;
             ";
 
-            List<Favorite> favorites = _db.Query<Favorite>(sql).ToList();
+            List<Favorite> favorites = _db.Query<Favorite, Recipe, Favorite>(sql, (favorite, recipe) => 
+            {
+                favorite.RecipeId = recipe.Id;
+                favorite.Recipe = recipe;
+                return favorite;
+            }).ToList();
             return favorites;
+        }
+
+        internal Favorite GetOneFavorite(int id)
+        {
+            string sql = @"
+            SELECT
+            fav.*,
+            acct.*,
+            rec.*
+            FROM favorites fav
+            JOIN accounts acct ON fav.accountId = acct.id
+            JOIN recipes rec ON fav.recipeId = rec.id
+            WHERE fav.id = @id;
+            ";
+
+            Favorite favorite = _db.Query<Favorite, Account, Recipe, Favorite>(sql, (favorite, account, recipe) => 
+            {
+                favorite.AccountId = account.Id;
+                favorite.RecipeId = recipe.Id;
+                favorite.Recipe = recipe;
+                return favorite;
+            }, new { id }).FirstOrDefault();
+            return favorite;
         }
     }
 }

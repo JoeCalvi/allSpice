@@ -72,3 +72,12 @@ VALUES
 ('641b636bc53b98bd6be93ce2', '1');
 
 DROP TABLE IF EXISTS favorites;
+
+SELECT
+fav.*,
+acct.*,
+rec.*
+FROM favorites fav
+JOIN accounts acct ON fav.accountId = acct.id
+JOIN recipes rec ON fav.recipeId = rec.id
+WHERE fav.id = "2";

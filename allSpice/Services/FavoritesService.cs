@@ -17,9 +17,15 @@ namespace allSpice.Services
 
         internal List<Favorite> GetFavorites(string userId)
         {
-            
+
             List<Favorite> favorites = _repo.GetFavorites(userId);
             return favorites;
+        }
+
+        internal Favorite GetOneFavorite(int id)
+        {
+            Favorite favorite = _repo.GetOneFavorite(id);
+            return favorite;
         }
     }
 }
