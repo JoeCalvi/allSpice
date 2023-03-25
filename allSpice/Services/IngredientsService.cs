@@ -17,6 +17,7 @@ namespace allSpice.Services
             return ingredient;
         }
 
+
         internal Ingredient EditIngredient(Ingredient ingredientData, string userId)
         {
             List<Ingredient> ingredients = _repo.GetAllIngredients();
@@ -41,6 +42,15 @@ namespace allSpice.Services
         {
             List<Ingredient> ingredients = _repo.GetIngredientsInRecipe(recipeId);
             return ingredients;
+        }
+        internal Ingredient DeleteIngredient(int id, string userId)
+        {
+            List<Ingredient> ingredients = _repo.GetAllIngredients();
+            Ingredient ingredient = ingredients.Find(i => i.Id == id);
+            Recipe recipe = _recRepo.GetRecipeById(ingredient.RecipeId);
+            if(recipe.CreatorId != userId) throw new Exception("You must be the person who shared the recipe to delete its ingredients.");
+            _repo.DeleteIngredient(id);
+            return ingredient;
         }
     }
 }
