@@ -3,7 +3,7 @@ namespace allSpice.Models
     public class Recipe
     {
         public int Id { get; set; }
-        public Account Creator { get; set; }
+        public Profile Creator { get; set; }
         public string CreatorId { get; set; }
         public string Title { get; set; }
         public string Instructions { get; set; }

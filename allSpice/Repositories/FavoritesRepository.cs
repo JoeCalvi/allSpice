@@ -24,7 +24,7 @@ namespace allSpice.Repositories
             return favoriteData;
         }
 
-        internal List<Favorite> GetFavorites(string userId)
+        internal List<Favorite> GetFavorites()
         {
             string sql = @"
             SELECT

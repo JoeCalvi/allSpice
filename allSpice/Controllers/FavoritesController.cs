@@ -37,7 +37,7 @@ namespace allSpice.Controllers
             try 
             {
               Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-              List<Favorite> favorites = _favoritesService.GetFavorites(userInfo.Id);
+              List<Favorite> favorites = _favoritesService.GetFavorites();
               return Ok(favorites);
             }
             catch (Exception e)

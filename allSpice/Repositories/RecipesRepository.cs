@@ -14,10 +14,17 @@ namespace allSpice.Repositories
         {
             string sql = @"
             SELECT
-            *
-            FROM recipes;
+            rec.*,
+            acct.*
+            FROM recipes rec
+            JOIN accounts acct ON rec.creatorId = acct.id;
             ";
-            List<Recipe> recipes = _db.Query<Recipe>(sql).ToList();
+            List<Recipe> recipes = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, account) => 
+            {   
+                recipe.Creator = account;
+                recipe.CreatorId = account.Id;
+                return recipe;
+            }).ToList();
             return recipes;
         }
 
@@ -31,9 +38,10 @@ namespace allSpice.Repositories
             JOIN accounts acct ON rec.creatorId = acct.id
             WHERE rec.id = @id;
             ";
-            Recipe recipe = _db.Query<Recipe, Account, Recipe>(sql, (recipe, account) => 
+            Recipe recipe = _db.Query<Recipe, Profile, Recipe>(sql, (recipe, account) => 
             {
                 recipe.CreatorId = account.Id;
+                recipe.Creator = account;
                 return recipe;
             }, new { id }).FirstOrDefault();
             return recipe;
