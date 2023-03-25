@@ -23,5 +23,17 @@ namespace allSpice.Repositories
             favoriteData.Id = id;
             return favoriteData;
         }
+
+        internal List<Favorite> GetFavorites(string userId)
+        {
+            string sql = @"
+            SELECT
+            *
+            FROM favorites;
+            ";
+
+            List<Favorite> favorites = _db.Query<Favorite>(sql).ToList();
+            return favorites;
+        }
     }
 }

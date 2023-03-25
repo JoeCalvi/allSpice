@@ -29,5 +29,21 @@ namespace allSpice.Controllers
               return BadRequest(e.Message);
             }
         }
+
+        [HttpGet]
+        [Authorize]
+        async public Task<ActionResult<List<Favorite>>> GetFavorites()
+        {
+            try 
+            {
+              Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+              List<Favorite> favorites = _favoritesService.GetFavorites(userInfo.Id);
+              return Ok(favorites);
+            }
+            catch (Exception e)
+            {
+              return BadRequest(e.Message);
+            }
+        }
     }
 }
