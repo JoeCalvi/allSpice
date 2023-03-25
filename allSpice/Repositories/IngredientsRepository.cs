@@ -36,5 +36,24 @@ namespace allSpice.Repositories
             List<Ingredient> ingredients = _db.Query<Ingredient>(sql).ToList();
             return ingredients;
         }
+
+        internal List<Ingredient> GetIngredientsInRecipe(int recipeId)
+        {
+            string sql = @"
+            SELECT
+            ing.*,
+            rec.*
+            FROM ingredients ing 
+            JOIN recipes rec ON ing.recipeId = rec.id
+            WHERE ing.recipeId = @recipeId; 
+            ";
+
+            List<Ingredient> ingredients = _db.Query<Ingredient, Recipe, Ingredient>(sql, (ingredient, recipe) => 
+            {
+                ingredient.RecipeId = recipe.Id;
+                return ingredient;
+            }, new { recipeId }).ToList();
+            return ingredients;
+        }
     }
 }

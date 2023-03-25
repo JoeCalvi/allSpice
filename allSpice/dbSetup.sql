@@ -59,6 +59,13 @@ CREATE TABLE IF NOT EXISTS favorites(
   FOREIGN KEY (recipeId) REFERENCES recipes(id) ON DELETE CASCADE
 ) default charset utf8 COMMENT '';
 
+  SELECT
+  ing.*,
+  rec.*
+  FROM ingredients ing 
+  JOIN recipes rec ON ing.recipeId = rec.id
+  WHERE ing.recipeId = 3; 
+
 INSERT INTO favorites
 (accountId, recipeId)
 VALUES

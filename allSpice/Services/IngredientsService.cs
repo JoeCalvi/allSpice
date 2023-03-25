@@ -20,5 +20,11 @@ namespace allSpice.Services
             List<Ingredient> ingredients = _repo.GetAllIngredients();
             return ingredients;
         }
+
+        internal List<Ingredient> GetIngredientsInRecipe(int recipeId)
+        {
+            List<Ingredient> ingredients = _repo.GetIngredientsInRecipe(recipeId);
+            return ingredients;
+        }
     }
 }
