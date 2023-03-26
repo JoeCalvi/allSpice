@@ -43,7 +43,7 @@ namespace allSpice.Controllers
             }
         }
 
-        [HttpGet("{id}/ingredients")]
+        [HttpGet("{recipeId}/ingredients")]
         public ActionResult<List<Ingredient>> GetIngredientsInRecipe(int recipeId)
         {
           try 
@@ -59,7 +59,7 @@ namespace allSpice.Controllers
 
         [HttpPost]
         [Authorize]
-        async public Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe recipeData)
+        public async Task<ActionResult<Recipe>> CreateRecipe([FromBody] Recipe recipeData)
         {
             try 
             {
@@ -78,7 +78,7 @@ namespace allSpice.Controllers
         [HttpPut("{id}")]
         [Authorize]
 
-        async public Task<ActionResult<Recipe>> EditRecipe(int id, [FromBody] Recipe recipeData)
+        public async Task<ActionResult<Recipe>> EditRecipe(int id, [FromBody] Recipe recipeData)
         {
             try 
             {
@@ -95,7 +95,7 @@ namespace allSpice.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        async public Task<ActionResult<Recipe>> DeleteRecipe(int id)
+        public async Task<ActionResult<Recipe>> DeleteRecipe(int id)
         {
             try 
             {

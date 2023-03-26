@@ -15,7 +15,7 @@ namespace allSpice.Controllers
 
         [HttpPost]
         [Authorize]
-        async public Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favoriteData)
+        public async Task<ActionResult<Favorite>> CreateFavorite([FromBody] Favorite favoriteData)
         {
             try 
             {
@@ -30,21 +30,21 @@ namespace allSpice.Controllers
             }
         }
 
-        [HttpGet]
-        [Authorize]
-        async public Task<ActionResult<List<Favorite>>> GetFavorites()
-        {
-            try 
-            {
-              Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
-              List<Favorite> favorites = _favoritesService.GetFavorites();
-              return Ok(favorites);
-            }
-            catch (Exception e)
-            {
-              return BadRequest(e.Message);
-            }
-        }
+        // [HttpGet]
+        // [Authorize]
+        // public async Task<ActionResult<List<Favorite>>> GetFavorites()
+        // {
+        //     try 
+        //     {
+        //       Account userInfo = await _auth.GetUserInfoAsync<Account>(HttpContext);
+        //       List<Favorite> favorites = _favoritesService.GetFavorites();
+        //       return Ok(favorites);
+        //     }
+        //     catch (Exception e)
+        //     {
+        //       return BadRequest(e.Message);
+        //     }
+        // }
 
         [HttpGet("{id}")]
         [Authorize]
@@ -63,7 +63,7 @@ namespace allSpice.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        async public Task<ActionResult<Favorite>> DeleteFavorite(int id)
+        public async Task<ActionResult<Favorite>> DeleteFavorite(int id)
         {
           try 
           {

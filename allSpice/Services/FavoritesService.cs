@@ -3,15 +3,18 @@ namespace allSpice.Services
     public class FavoritesService
     {
         private readonly FavoritesRepository _repo;
+        private readonly RecipesRepository _recRepo;
 
-        public FavoritesService(FavoritesRepository repo)
+        public FavoritesService(FavoritesRepository repo, RecipesRepository recRepo)
         {
             _repo = repo;
+            _recRepo = recRepo;
         }
 
         internal Favorite CreateFavorite(Favorite favoriteData)
         {
-            Favorite favorite = _repo.CreateFavorite(favoriteData);
+            Recipe recipe = _recRepo.GetRecipeById(favoriteData.RecipeId);
+            Favorite favorite = _repo.CreateFavorite(favoriteData, recipe);
             return favorite;
         }
 

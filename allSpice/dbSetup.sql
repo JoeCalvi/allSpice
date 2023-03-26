@@ -81,3 +81,6 @@ FROM favorites fav
 JOIN accounts acct ON fav.accountId = acct.id
 JOIN recipes rec ON fav.recipeId = rec.id
 WHERE fav.id = "2";
+
+ALTER TABLE favorites
+CHANGE id favoriteId INT NOT NULL AUTO_INCREMENT;

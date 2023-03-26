@@ -45,7 +45,7 @@ namespace allSpice.Controllers
 
         [HttpPut("{id}")]
         [Authorize]
-        async public Task<ActionResult<Ingredient>> EditIngredient(int id, [FromBody] Ingredient ingredientData)
+        public async Task<ActionResult<Ingredient>> EditIngredient(int id, [FromBody] Ingredient ingredientData)
         {
           try 
           {
@@ -62,7 +62,7 @@ namespace allSpice.Controllers
 
         [HttpDelete("{id}")]
         [Authorize]
-        async public Task<ActionResult<Ingredient>> DeleteIngredient(int id)
+        public async Task<ActionResult<Ingredient>> DeleteIngredient(int id)
         {
           try 
           {

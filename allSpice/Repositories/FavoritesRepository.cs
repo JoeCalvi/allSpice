@@ -9,7 +9,7 @@ namespace allSpice.Repositories
             _db = db;
         }
 
-        internal Favorite CreateFavorite(Favorite favoriteData)
+        internal Favorite CreateFavorite(Favorite favoriteData, Recipe recipe)
         {
             string sql = @"
             INSERT INTO favorites
@@ -21,6 +21,7 @@ namespace allSpice.Repositories
 
             int id = _db.ExecuteScalar<int>(sql, favoriteData);
             favoriteData.Id = id;
+            favoriteData.Recipe = recipe;
             return favoriteData;
         }
 
@@ -38,15 +39,18 @@ namespace allSpice.Repositories
             string sql = @"
             SELECT
             fav.*,
-            rec.*
+            rec.*,
+            acct.*
             FROM favorites fav
-            JOIN recipes rec ON fav.recipeId = rec.id;
+            JOIN recipes rec ON fav.recipeId = rec.id
+            JOIN accounts acct ON fav.accountId = acct.id;
             ";
 
-            List<Favorite> favorites = _db.Query<Favorite, Recipe, Favorite>(sql, (favorite, recipe) => 
+            List<Favorite> favorites = _db.Query<Favorite, Recipe, Profile, Favorite>(sql, (favorite, recipe, profile) => 
             {
                 favorite.RecipeId = recipe.Id;
                 favorite.Recipe = recipe;
+                favorite.Recipe.Creator = profile;
                 return favorite;
             }).ToList();
             return favorites;
