@@ -15,6 +15,15 @@ namespace allSpice.Services
             return favorite;
         }
 
+        internal string DeleteFavorite(int favoriteId, string userId)
+        {
+            Favorite favorite = _repo.GetOneFavorite(favoriteId);
+            if(favorite == null) throw new Exception("Recipe was either already unfavorited or removed by its creator.");
+            if(favorite.AccountId != userId) throw new Exception("You can only remove your own favorites.");
+            _repo.DeleteFavorite(favoriteId);
+            return "Recipe unfavorited.";
+        }
+
         internal List<Favorite> GetFavorites()
         {
 

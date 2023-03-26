@@ -24,6 +24,15 @@ namespace allSpice.Repositories
             return favoriteData;
         }
 
+        internal void DeleteFavorite(int favoriteId)
+        {
+            string sql = @"
+            DELETE FROM favorites
+            WHERE id = @favoriteId;
+            ";
+            _db.Execute(sql, new { favoriteId });
+        }
+
         internal List<Favorite> GetFavorites()
         {
             string sql = @"
