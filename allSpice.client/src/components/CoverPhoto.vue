@@ -2,7 +2,7 @@
     <div class="CoverPhoto">
         <div class="container">
             <div class="row mt-3">
-                <div class="col-12 cover-photo">
+                <div class="col-12 cover-photo rounded">
                     <div class="row justify-content-end">
                         <div class="col-3 d-flex align-items-center">
                             <div class="me-2">
@@ -18,6 +18,14 @@
                             <div>
                                 <Login />
                             </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-6 text-center all-spice">
+                            <h1>
+                                All-Spice
+                            </h1>
+                            <h6>Cherish Your Family<br> And Their Cooking.</h6>
                         </div>
                     </div>
                 </div>
@@ -46,5 +54,14 @@ export default {
     background-size: cover;
     width: 1379px;
     height: 329px;
+    box-shadow: 5px 5px 15px #5a5a5a;
+}
+
+.all-spice {
+    color: white;
+    text-shadow: 1px 2px 2px black;
+    font-family: Sahitya;
+    font-weight: lighter;
+    font-style: italic;
 }
 </style>

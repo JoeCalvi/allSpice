@@ -1,30 +1,24 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
-      aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto">
-        <li>
-          <router-link :to="{ name: 'About' }" class="btn text-success lighten-30 selectable text-uppercase">
-            About
-          </router-link>
-        </li>
-      </ul>
-      <!-- LOGIN COMPONENT HERE -->
-      <Login />
+  <div class="col-5">
+    <div class="row align-items-center bg-white nav-height rounded">
+      <div class="col-md-4 text-center nav-link">
+        Home
+      </div>
+      <div class="col-md-4 text-center nav-link">
+        My Recipes
+      </div>
+      <div class="col-md-4 text-center nav-link">
+        Favorites
+      </div>
     </div>
-  </nav>
+  </div>
 </template>
 
 <script>
-import Login from './Login.vue'
 export default {
   setup() {
     return {}
-  },
-  components: { Login }
+  }
 }
 </script>
 
@@ -33,8 +27,14 @@ a:hover {
   text-decoration: none;
 }
 
+.nav-height {
+  height: 70px;
+  box-shadow: 5px 5px 10px #5a5a5a;
+}
+
 .nav-link {
-  text-transform: uppercase;
+  font-family: Sahitya;
+  color: #219653;
 }
 
 .navbar-nav .router-link-exact-active {
