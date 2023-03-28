@@ -32,17 +32,19 @@
     </div>
 
     <Modal id="recipe-details">
-        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80"
-            alt="">
+        <RecipeDetails />
     </Modal>
 </template>
 
 
 <script>
+import RecipeDetails from './RecipeDetails.vue';
+
 export default {
     setup() {
-        return {}
-    }
+        return {};
+    },
+    components: { RecipeDetails }
 }
 </script>
 
