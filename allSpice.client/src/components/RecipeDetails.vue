@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-4 recipe-img rounded-start d-flex justify-content-end">
                     <div class="card favorite-heart d-flex justify-content-center align-items-center">
-                        <i class="mdi mdi-heart-outline"></i>
+                        <i class="mdi mdi-heart-outline selectable"></i>
                     </div>
                 </div>
                 <div class="col-md-8">
