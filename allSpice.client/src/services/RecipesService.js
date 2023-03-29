@@ -9,6 +9,11 @@ class RecipesService {
         AppState.recipes = res.data
         logger.log(AppState.recipes)
     }
+
+    setActiveRecipe(recipeId) {
+        AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
+        logger.log(AppState.activeRecipe)
+    }
 }
 
 export const recipesService = new RecipesService();

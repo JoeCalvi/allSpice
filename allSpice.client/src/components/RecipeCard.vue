@@ -16,8 +16,8 @@
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col-md-11 glass-card rounded mb-2 selectable" data-bs-toggle="modal"
-                        data-bs-target="#recipe-details">
+                    <div @click="setActiveRecipe(`${recipe?.id}`)" class="col-md-11 glass-card rounded mb-2 selectable"
+                        data-bs-toggle="modal" data-bs-target="#recipe-details">
                         <div class="mt-2">
                             <h5>{{ recipe?.title }}</h5>
                         </div>
@@ -36,13 +36,20 @@
 
 
 <script>
+import { AppState } from '../AppState.js';
+import { recipesService } from '../services/RecipesService.js';
 import RecipeDetails from './RecipeDetails.vue';
 
 export default {
     props: { recipe: { type: Object, required: true } },
 
     setup() {
-        return {};
+        return {
+            setActiveRecipe(recipeId) {
+                AppState.activeRecipe = null
+                recipesService.setActiveRecipe(recipeId)
+            }
+        };
     },
 }
 </script>
