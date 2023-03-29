@@ -10,6 +10,11 @@ class RecipesService {
         logger.log(AppState.recipes)
     }
 
+    getMyRecipes(accountId) {
+        AppState.myRecipes = AppState.recipes.filter(r => r.creatorId == accountId)
+        logger.log(AppState.myRecipes)
+    }
+
     setActiveRecipe(recipeId) {
         AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
         logger.log(AppState.activeRecipe)

@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue';
 import RecipeCardVue from '../components/RecipeCard.vue';
 import Modal from '../components/Modal.vue';
 import { logger } from '../utils/Logger.js';
@@ -31,11 +30,12 @@ export default {
     onMounted(() => {
       getAllRecipes();
     })
+
     return {
       recipes: computed(() => AppState.recipes)
     };
   },
-  components: { Navbar, RecipeCardVue, Modal }
+  components: { RecipeCardVue, Modal }
 }
 </script>
 
