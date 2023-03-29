@@ -45,9 +45,10 @@ export default {
 
     setup() {
         return {
-            setActiveRecipe(recipeId) {
+            async setActiveRecipe(recipeId) {
                 AppState.activeRecipe = null
                 recipesService.setActiveRecipe(recipeId)
+                await recipesService.getIngredientsByRecipeId(recipeId)
             }
         };
     },

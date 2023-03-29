@@ -3,28 +3,30 @@
         <div class="container-fluid">
             <div class="row">
                 <div :style="`background-image: url(${recipe?.img})`"
-                    class="col-md-4 recipe-img rounded-start d-flex justify-content-end">
+                    class="col-lg-4 recipe-img rounded-start d-flex justify-content-end">
                     <div class="card favorite-heart d-flex justify-content-center align-items-center">
                         <i class="mdi mdi-heart-outline selectable"></i>
                     </div>
                 </div>
-                <div class="col-md-8">
-                    <div class="row align-items-center justify-content-between mt-3">
-                        <div class="col-md-10 d-flex align-items-center">
-                            <h6 class="recipe-title">
-                                {{ recipe?.title }}
-                            </h6>
-                            <div class="ms-3 mb-2 text-center glass-card rounded-pill">
-                                {{ recipe?.category }}
+                <div class="col-lg-8 d-flex flex-column justify-content-between">
+                    <div class="row mt-3">
+                        <div class="col-lg-12 d-flex align-items-center justify-content-between mb-2">
+                            <div>
+                                <span class="recipe-title">
+                                    {{ recipe?.title }}
+                                    <span class="p-2 ms-3 mb-2 text-center glass-card rounded-pill">
+                                        {{ recipe?.category }}
+                                    </span>
+                                </span>
+                            </div>
+                            <div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                         </div>
-                        <div class="col-md-1 mb-1">
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
+                        <span class="recipe-description">added by {{ recipe?.creator.name }}</span>
                     </div>
-                    <span class="recipe-description">added by {{ recipe?.creator.name }}</span>
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-lg-6">
                             <div class="card mt-3">
                                 <div class="card-header text-center header-color">
                                     Recipe Instructions
@@ -36,15 +38,15 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-6">
+                        <div class="col-lg-6 mb-2">
                             <div class="card mt-3">
                                 <div class="card-header text-center header-color">
                                     Ingredients
                                 </div>
                                 <div class="card-body recipe-instructions">
                                     <ul>
-                                        <li v-for="i in recipe?.ingredients">
-                                            2 tbsp garlic
+                                        <li v-for="i in ingredients">
+                                            {{ i?.quantity }} {{ i?.name }}
                                         </li>
                                     </ul>
                                 </div>
@@ -66,7 +68,8 @@ export default {
 
     setup() {
         return {
-            recipe: computed(() => AppState.activeRecipe)
+            recipe: computed(() => AppState.activeRecipe),
+            ingredients: computed(() => AppState.ingredients)
         }
     }
 }
@@ -77,7 +80,7 @@ export default {
 .recipe-img {
     background-size: cover;
     background-position: center;
-    height: 60vh;
+    height: 70vh;
 }
 
 .glass-card {
@@ -114,7 +117,7 @@ export default {
 .recipe-instructions {
     overflow-y: scroll;
     scroll-behavior: auto;
-    height: 42vh;
+    height: 50vh;
 }
 
 .header-color {

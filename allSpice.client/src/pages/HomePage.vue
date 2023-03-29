@@ -23,7 +23,7 @@ export default {
       try {
         await recipesService.getAllRecipes()
       } catch (error) {
-        logger.log(error)
+        logger.error(error)
         Pop.error(error)
       }
     }

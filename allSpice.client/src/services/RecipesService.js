@@ -14,6 +14,11 @@ class RecipesService {
         AppState.activeRecipe = AppState.recipes.find(r => r.id == recipeId)
         logger.log(AppState.activeRecipe)
     }
+
+    async getIngredientsByRecipeId(recipeId) {
+        const res = await api.get(`api/recipes/${recipeId}/ingredients`)
+        AppState.ingredients = res.data
+    }
 }
 
 export const recipesService = new RecipesService();
