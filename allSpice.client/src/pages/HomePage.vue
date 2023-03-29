@@ -1,10 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="row justify-content-center navbar-y">
-      <Navbar />
-    </div>
     <div class="row">
-      <RecipeCardVue />
+      <RecipeCardVue v-for="recipe in recipes" :recipe="recipe" />
     </div>
   </div>
 </template>
@@ -13,17 +10,33 @@
 import Navbar from '../components/Navbar.vue';
 import RecipeCardVue from '../components/RecipeCard.vue';
 import Modal from '../components/Modal.vue';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
+import { recipesService } from "../services/RecipesService.js";
+import { onMounted, computed } from 'vue';
+import { AppState } from '../AppState';
 
 export default {
   setup() {
-    return {};
+
+    async function getAllRecipes() {
+      try {
+        await recipesService.getAllRecipes()
+      } catch (error) {
+        logger.log(error)
+        Pop.error(error)
+      }
+    }
+
+    onMounted(() => {
+      getAllRecipes();
+    })
+    return {
+      recipes: computed(() => AppState.recipes)
+    };
   },
   components: { Navbar, RecipeCardVue, Modal }
 }
 </script>
 
-<style scoped lang="scss">
-.navbar-y {
-  transform: translateY(-30px);
-}
-</style>
+<style scoped lang="scss"></style>

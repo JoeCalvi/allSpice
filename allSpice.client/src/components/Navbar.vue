@@ -2,13 +2,19 @@
   <div class="col-5">
     <div class="row align-items-center bg-white nav-height rounded">
       <div class="col-md-4 text-center nav-link">
-        Home
+        <router-link class="nav-link" :to="{ name: 'Home' }">
+          Home
+        </router-link>
       </div>
-      <div class="col-md-4 text-center nav-link">
-        My Recipes
+      <div class="col-md-4 text-center ">
+        <router-link class="nav-link" :to="{ name: 'MyRecipes' }">
+          My Recipes
+        </router-link>
       </div>
-      <div class="col-md-4 text-center nav-link">
-        Favorites
+      <div class="col-md-4 text-center">
+        <router-link class="nav-link" :to="{ name: 'Favorites' }">
+          Favorites
+        </router-link>
       </div>
     </div>
   </div>

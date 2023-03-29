@@ -1,36 +1,34 @@
 <template>
-    <div class="RecipeCard">
-        <div class="col-md-4">
-            <div class="card recipe-card selectable" data-bs-toggle="modal" data-bs-target="#recipe-details">
-                <div class="col-md-12">
-                    <div class="row justify-content-between">
-                        <div class="col-3">
-                            <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
-                                <span class="p-1">Soups</span>
-                            </div>
-                        </div>
-                        <div class="col-2">
-                            <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
-                                <i class="mdi mdi-heart-outline"></i>
-                            </div>
+    <div class="RecipeCard col-lg-4 mb-3">
+        <div class="card recipe-card" :style="`background-image: url(${recipe?.img})`">
+            <div class="col-md-12 recipe-card-height d-flex flex-column justify-content-between">
+                <div class="row justify-content-between">
+                    <div class="col-4">
+                        <div
+                            class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill selectable">
+                            <span class="p-1 text-center">{{ recipe?.category }}</span>
                         </div>
                     </div>
-                    <div class="row useless-height"></div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-11 glass-card rounded">
-                            <div class="mt-2">
-                                <h5>Ridiculous Soup Dish</h5>
-                            </div>
-                            <div class="mb-2 pb-1">
-                                <span>A delightful meal if you don't like actual food.</span>
-                            </div>
+                    <div class="col-2">
+                        <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
+                            <i class="mdi mdi-heart-outline selectable"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-11 glass-card rounded mb-2 selectable" data-bs-toggle="modal"
+                        data-bs-target="#recipe-details">
+                        <div class="mt-2">
+                            <h5>{{ recipe?.title }}</h5>
+                        </div>
+                        <div class="mb-2 pb-1">
+                            <span>added by <span class="creator-font">{{ recipe?.creator.name }}</span></span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
     <Modal id="recipe-details">
         <RecipeDetails />
     </Modal>
@@ -41,22 +39,31 @@
 import RecipeDetails from './RecipeDetails.vue';
 
 export default {
+    props: { recipe: { type: Object, required: true } },
+
     setup() {
         return {};
     },
-    components: { RecipeDetails }
 }
 </script>
 
 
 <style lang="scss" scoped>
 .recipe-card {
-    background-image: url(https://images.unsplash.com/photo-1547592166-23ac45744acd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1171&q=80);
     background-position: center;
     background-size: cover;
     height: 385px;
     width: 385px;
     box-shadow: 5px 5px 10px #5a5a5a;
+}
+
+.recipe-card-height {
+    height: 385px;
+}
+
+.creator-font {
+    font-style: italic;
+    color: white;
 }
 
 .glass-card {
@@ -65,9 +72,5 @@ export default {
     backdrop-filter: blur(10px);
     color: white;
     text-shadow: 1px 2px 2px black;
-}
-
-.useless-height {
-    height: 16em;
 }
 </style>

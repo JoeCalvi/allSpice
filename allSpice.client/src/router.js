@@ -12,9 +12,14 @@ const routes = [
     component: loadPage('HomePage')
   },
   {
-    path: '/about',
-    name: 'About',
-    component: loadPage('AboutPage')
+    path: '/myrecipes',
+    name: 'MyRecipes',
+    component: loadPage('MyRecipesPage')
+  },
+  {
+    path: '/favorites',
+    name: 'Favorites',
+    component: loadPage('FavoritesPage')
   },
   {
     path: '/account',

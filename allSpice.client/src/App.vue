@@ -3,6 +3,9 @@
     <CoverPhoto />
   </header>
   <main>
+    <div class="row justify-content-center navbar-y">
+      <Navbar />
+    </div>
     <router-view />
   </main>
   <footer class="sticky-bottom d-flex justify-content-end mb-5">
@@ -34,6 +37,10 @@ export default {
 
 :root {
   --main-height: calc(100vh - 32px - 64px);
+}
+
+.navbar-y {
+  transform: translateY(-30px);
 }
 
 footer {
