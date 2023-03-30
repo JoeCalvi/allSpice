@@ -5,7 +5,9 @@
                 <div :style="`background-image: url(${recipe?.img})`"
                     class="col-lg-4 recipe-img rounded-start d-flex justify-content-end">
                     <div class="card favorite-heart d-flex justify-content-center align-items-center">
-                        <i class="mdi mdi-heart-outline selectable"></i>
+                        <i v-if="favorite?.recipeId == recipe?.id && favorite?.accountId == account?.id"
+                            @click="unfavoriteRecipe(`${favorite?.id}`)" class="mdi mdi-heart text-danger selectable"></i>
+                        <i v-else @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
                     </div>
                 </div>
                 <div class="col-lg-8 d-flex flex-column justify-content-between">
@@ -63,13 +65,36 @@
 <script>
 import { computed } from 'vue';
 import { AppState } from '../AppState.js';
+import { recipesService } from '../services/RecipesService.js';
+import { logger } from '../utils/Logger';
+import Pop from '../utils/Pop';
 
 export default {
 
     setup() {
         return {
             recipe: computed(() => AppState.activeRecipe),
-            ingredients: computed(() => AppState.ingredients)
+            ingredients: computed(() => AppState.ingredients),
+            favorite: computed(() => AppState.favorites.find(f => f.recipeId == AppState.activeRecipe?.id)),
+            account: computed(() => AppState.account),
+
+            async favoriteRecipe(recipeId) {
+                try {
+                    await recipesService.favoriteRecipe(recipeId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            },
+
+            async unfavoriteRecipe(favoriteId) {
+                try {
+                    await recipesService.unfavoriteRecipe(favoriteId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            }
         }
     }
 }
