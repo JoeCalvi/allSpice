@@ -11,9 +11,22 @@ class RecipesService {
         logger.log(AppState.recipes)
     }
 
+    async createNewRecipe(recipeData) {
+        const res = await api.post('api/recipes', recipeData)
+        AppState.recipes.push(res.data)
+        AppState.myRecipes.push(res.data)
+    }
+
     getMyRecipes(accountId) {
         AppState.myRecipes = AppState.recipes.filter(r => r.creatorId == accountId)
         logger.log(AppState.myRecipes)
+    }
+
+    async deleteRecipe(recipeId) {
+        const res = await api.delete(`api/recipes/${recipeId}`)
+        logger.log(res.data)
+        let recipeIndex = AppState.recipes.findIndex(r => r.id == recipeId)
+        AppState.recipes.splice(recipeIndex, 1)
     }
 
     setActiveRecipe(recipeId) {
