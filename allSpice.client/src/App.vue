@@ -28,6 +28,7 @@ import Login from "./components/Login.vue"
 import CoverPhoto from './components/CoverPhoto.vue'
 import Modal from './components/Modal.vue'
 import NewRecipeForm from './components/NewRecipeForm.vue'
+import { recipesService } from './services/RecipesService'
 
 export default {
   setup() {

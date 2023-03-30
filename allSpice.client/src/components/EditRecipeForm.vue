@@ -10,14 +10,16 @@
                             Recipe Instructions
                         </div>
                         <div class="card-body recipe-instructions">
-                            <div class="mb-3">
-                                <label for="instructions" class="form-label mb-3">Edit Instructions</label>
-                                <textarea class="form-control" id="instructions"
-                                    rows="8">{{ recipe?.instructions }}</textarea>
-                            </div>
-                            <div class="text-end">
-                                <button class="btn btn-success">Submit</button>
-                            </div>
+                            <form @submit.prevent="editInstructions(`${recipe?.id}`)">
+                                <div class="mb-3">
+                                    <label for="instructions" class="form-label mb-3">Edit Instructions</label>
+                                    <textarea v-model="editableInstructions.instructions" class="form-control"
+                                        id="instructions" rows="8"></textarea>
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-success" type="submit">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -34,8 +36,7 @@
                                         placeholder="Ingredient Name" aria-label="Ingredient Name">
                                     <span class="input-group-text"><i class="mdi mdi-ampersand"></i></span>
                                     <input v-model="editableIngredient.quantity" type="text" id="quantity"
-                                        class="form-control" placeholder="Ingredient Quantity"
-                                        aria-label="Ingredient Quantity">
+                                        class="form-control" placeholder="Quantity" aria-label="Ingredient Quantity">
                                 </div>
                                 <div class="text-end">
                                     <button class="btn btn-success" type="submit">Add</button>
@@ -62,17 +63,20 @@ import { AppState } from '../AppState.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { ingredientsService } from "../services/IngredientsService.js";
+import { recipesService } from '../services/RecipesService.js';
 
 
 
 export default {
     setup() {
         const editableIngredient = ref({})
+        const editableInstructions = ref({})
 
         return {
             recipe: computed(() => AppState.activeRecipe),
             ingredients: computed(() => AppState.ingredients),
             editableIngredient,
+            editableInstructions,
 
             async addIngredient(recipeId) {
                 try {
@@ -86,6 +90,15 @@ export default {
             async deleteIngredient(ingredientId) {
                 try {
                     await ingredientsService.deleteIngredient(ingredientId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            },
+
+            async editInstructions(recipeId) {
+                try {
+                    await recipesService.editInstructions(recipeId, editableInstructions.value)
                 } catch (error) {
                     logger.error(error)
                     Pop.error(error)

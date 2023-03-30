@@ -6,11 +6,11 @@
                     <div class="row justify-content-end">
                         <div class="col-3 d-flex align-items-center">
                             <div class="me-2">
-                                <form @submit.prevent="">
+                                <form @submit.prevent="searchRecipes()">
                                     <div class="input-group">
-                                        <input type="text" class="form-control bg-white" placeholder="Search"
-                                            aria-label="Search" aria-describedby="button-addon2">
-                                        <button class="btn btn-light" type="button" id="button-addon2"><i
+                                        <input v-model="editable.query" type="text" class="form-control bg-white"
+                                            placeholder="Search" aria-label="Search" aria-describedby="button-addon2">
+                                        <button class="btn btn-light" type="submit" id="button-addon2"><i
                                                 class="mdi mdi-magnify"></i></button>
                                     </div>
                                 </form>
@@ -37,10 +37,20 @@
 
 
 <script>
+import { ref } from 'vue';
+import { recipesService } from '../services/RecipesService';
 import Login from './Login.vue';
 export default {
     setup() {
-        return {}
+        const editable = ref({})
+        return {
+            editable,
+
+            searchRecipes() {
+                const query = editable.value
+                recipesService.searchRecipes(query)
+            }
+        }
     },
     components: { Login }
 }

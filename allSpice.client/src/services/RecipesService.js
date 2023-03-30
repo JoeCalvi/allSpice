@@ -6,6 +6,7 @@ import { api } from "./AxiosService.js";
 class RecipesService {
 
     async getAllRecipes() {
+        AppState.searchResults = []
         const res = await api.get('api/recipes')
         AppState.recipes = res.data
         logger.log(AppState.recipes)
@@ -40,7 +41,6 @@ class RecipesService {
     }
 
     async getMyFavorites() {
-
         const res = await api.get('account/favorites')
         AppState.favorites = res.data
         logger.log(AppState.favorites)
@@ -61,6 +61,20 @@ class RecipesService {
             AppState.favorites.splice(favoriteIndex, 1)
             logger.log('res.data:', res.data, 'Appstate favs:', AppState.favorites)
         }
+    }
+
+    async editInstructions(recipeId, instructionsData) {
+        const res = await api.put(`api/recipes/${recipeId}`, instructionsData)
+        AppState.activeRecipe = res.data
+    }
+
+    searchRecipes(query) {
+        let results = AppState.recipes.filter(r => r.category.toLowerCase() == query.query.toLowerCase())
+        results.forEach(r => {
+            let index = AppState.recipes.indexOf(r)
+            AppState.recipes.splice(index, 1)
+            AppState.recipes.unshift(r)
+        })
     }
 }
 
