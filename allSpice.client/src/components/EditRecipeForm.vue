@@ -27,17 +27,20 @@
                             Ingredients
                         </div>
                         <div class="card-body recipe-instructions">
-                            <label for="ingredients" class="form-label mb-3">Add Ingredient</label>
-                            <div class="input-group mb-3">
-                                <input type="text" id="name" class="form-control" placeholder="Ingredient Name"
-                                    aria-label="Ingredient Name">
-                                <span class="input-group-text"><i class="mdi mdi-ampersand"></i></span>
-                                <input type="text" id="quantity" class="form-control" placeholder="Ingredient Quantity"
-                                    aria-label="Ingredient Quantity">
-                            </div>
-                            <div class="text-end">
-                                <button class="btn btn-success">Add</button>
-                            </div>
+                            <form @submit.prevent="addIngredient(recipe?.id)">
+                                <label for="ingredients" class="form-label mb-3">Add Ingredient</label>
+                                <div class="input-group mb-3">
+                                    <input v-model="editableIngredient.name" type="text" id="name" class="form-control"
+                                        placeholder="Ingredient Name" aria-label="Ingredient Name">
+                                    <span class="input-group-text"><i class="mdi mdi-ampersand"></i></span>
+                                    <input v-model="editableIngredient.quantity" type="text" id="quantity"
+                                        class="form-control" placeholder="Ingredient Quantity"
+                                        aria-label="Ingredient Quantity">
+                                </div>
+                                <div class="text-end">
+                                    <button class="btn btn-success" type="submit">Add</button>
+                                </div>
+                            </form>
                             <div>
                                 <div v-for="i in ingredients" @click="deleteIngredient(`${i?.id}`)"
                                     class="d-flex gap-3 align-items-center mb-2 p-2 border-bottom border-success">
@@ -54,7 +57,7 @@
 
 
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { AppState } from '../AppState.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
@@ -64,9 +67,21 @@ import { ingredientsService } from "../services/IngredientsService.js";
 
 export default {
     setup() {
+        const editableIngredient = ref({})
+
         return {
             recipe: computed(() => AppState.activeRecipe),
             ingredients: computed(() => AppState.ingredients),
+            editableIngredient,
+
+            async addIngredient(recipeId) {
+                try {
+                    await ingredientsService.addIngredient(recipeId, editableIngredient.value)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            },
 
             async deleteIngredient(ingredientId) {
                 try {
