@@ -11,20 +11,23 @@
   <footer class="sticky-bottom d-flex justify-content-end">
     <div class="pe-3">
       <button class="btn btn-success new-recipe-button rounded-circle d-flex justify-content-center align-items-center"><i
-          class="mdi mdi-plus"></i></button>
+          class="mdi mdi-plus" data-bs-toggle="modal" data-bs-target="#new-recipe"></i></button>
     </div>
   </footer>
+
+  <Modal id="new-recipe">
+    <NewRecipeForm />
+  </Modal>
 </template>
 
 <script>
-import { computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { AppState } from './AppState.js'
 import Navbar from './components/Navbar.vue'
 import Login from "./components/Login.vue"
 import CoverPhoto from './components/CoverPhoto.vue'
-import { logger } from './utils/Logger.js'
-import Pop from './utils/Pop.js'
-import { recipesService } from './services/RecipesService.js'
+import Modal from './components/Modal.vue'
+import NewRecipeForm from './components/NewRecipeForm.vue'
 
 export default {
   setup() {
@@ -32,7 +35,7 @@ export default {
       appState: computed(() => AppState)
     }
   },
-  components: { Navbar, Login, CoverPhoto }
+  components: { Navbar, Login, CoverPhoto, Modal, NewRecipeForm }
 }
 </script>
 <style lang="scss">
@@ -44,6 +47,16 @@ export default {
 
 .navbar-y {
   transform: translateY(-30px);
+}
+
+.modal-header {
+  background-color: #527360;
+  color: white;
+  font-family: 'Sahitya';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 24px;
 }
 
 footer {
