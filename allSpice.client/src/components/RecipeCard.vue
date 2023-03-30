@@ -11,7 +11,10 @@
                     </div>
                     <div class="col-2">
                         <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
-                            <i @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
+                            <i v-if="!recipe?.favorited" @click="favoriteRecipe(`${recipe?.id}`)"
+                                class="mdi mdi-heart-outline selectable"></i>
+                            <i v-else="recipe?.favorited" @click="unfavoriteRecipe(`${recipe?.id}`)"
+                                class="mdi mdi-heart selectable"></i>
                         </div>
                     </div>
                 </div>
@@ -49,6 +52,7 @@ export default {
     setup() {
         return {
             favorites: computed(() => AppState.favorites),
+            recipes: computed(() => AppState.recipes),
 
             async setActiveRecipe(recipeId) {
                 AppState.activeRecipe = null

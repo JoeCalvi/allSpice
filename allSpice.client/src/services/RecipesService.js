@@ -28,10 +28,11 @@ class RecipesService {
 
     async getMyFavorites() {
         const res = await api.get('account/favorites')
-        AppState.favorites = res.data
+        AppState.favorites = res.data.filter(f => f.accountId == AppState.account.id)
         logger.log(AppState.favorites)
     }
     async favoriteRecipe(recipeId) {
+        await api.put(`api/recipes/${recipeId}`, { favorited: true })
         let recipe = AppState.recipes.find(r => r.id == recipeId)
         recipe.favorited = true
 
