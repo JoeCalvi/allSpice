@@ -11,10 +11,10 @@
                     </div>
                     <div class="col-2">
                         <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
-                            <i v-if="!recipe?.favorited" @click="favoriteRecipe(`${recipe?.id}`)"
-                                class="mdi mdi-heart-outline selectable"></i>
-                            <i v-else="recipe?.favorited" @click="unfavoriteRecipe(`${recipe?.id}`)"
-                                class="mdi mdi-heart selectable"></i>
+                            <i v-if="favorite?.recipeId == recipe?.id && favorite?.accountId == account?.id"
+                                @click="unfavoriteRecipe(`${favorite?.id}`)"
+                                class="mdi mdi-heart text-danger selectable"></i>
+                            <i v-else @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
                         </div>
                     </div>
                 </div>
@@ -49,10 +49,10 @@ import RecipeDetails from './RecipeDetails.vue';
 export default {
     props: { recipe: { type: Object, required: true } },
 
-    setup() {
+    setup(props) {
         return {
-            favorites: computed(() => AppState.favorites),
-            recipes: computed(() => AppState.recipes),
+            favorite: computed(() => AppState.favorites.find(f => f.recipeId == props.recipe.id)),
+            account: computed(() => AppState.account),
 
             async setActiveRecipe(recipeId) {
                 AppState.activeRecipe = null
@@ -79,6 +79,7 @@ export default {
             }
         };
     },
+    components: { RecipeDetails }
 }
 </script>
 

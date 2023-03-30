@@ -10,7 +10,7 @@
 
 
 <script>
-import { computed, onMounted } from 'vue';
+import { computed, onMounted, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 import RecipeCard from '../components/RecipeCard.vue';
 import { recipesService } from '../services/RecipesService';
@@ -32,6 +32,10 @@ export default {
         onMounted(() => {
             getMyRecipes();
         });
+
+        watchEffect(() => {
+            if (AppState.account.id) { recipesService.getMyFavorites() }
+        })
         return {
             account: computed(() => AppState.account),
             myRecipes: computed(() => AppState.myRecipes)

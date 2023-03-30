@@ -17,11 +17,14 @@
 </template>
 
 <script>
-import { computed } from 'vue'
-import { AppState } from './AppState'
+import { computed, onMounted } from 'vue'
+import { AppState } from './AppState.js'
 import Navbar from './components/Navbar.vue'
 import Login from "./components/Login.vue"
 import CoverPhoto from './components/CoverPhoto.vue'
+import { logger } from './utils/Logger.js'
+import Pop from './utils/Pop.js'
+import { recipesService } from './services/RecipesService.js'
 
 export default {
   setup() {

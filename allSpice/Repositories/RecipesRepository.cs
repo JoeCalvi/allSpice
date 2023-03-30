@@ -51,9 +51,9 @@ namespace allSpice.Repositories
         {
             string sql = @"
             INSERT INTO recipes
-            (creatorId, title, instructions, img, favorited, category)
+            (creatorId, title, instructions, img, category)
             VALUES
-            (@creatorId, @title, @instructions, @img, @favorited, @category);
+            (@creatorId, @title, @instructions, @img, @category);
             SELECT LAST_INSERT_ID();
             ";
             int id = _db.ExecuteScalar<int>(sql, recipeData);
@@ -79,8 +79,7 @@ namespace allSpice.Repositories
             title = @title,
             instructions = @instructions,
             img = @img,
-            category = @category,
-            favorited = @favorited
+            category = @category
             WHERE id = @id;
             ";
 

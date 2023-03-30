@@ -34,7 +34,7 @@ namespace allSpice.Repositories
             _db.Execute(sql, new { favoriteId });
         }
 
-        internal List<Favorite> GetFavorites()
+        internal List<Favorite> GetFavorites(Account userInfo)
         {
             string sql = @"
             SELECT
@@ -50,7 +50,8 @@ namespace allSpice.Repositories
             {
                 favorite.RecipeId = recipe.Id;
                 favorite.Recipe = recipe;
-                favorite.Recipe.Creator = profile;
+                favorite.Recipe.Creator = recipe.Creator;
+                favorite.AccountId = userInfo.Id;
                 return favorite;
             }).ToList();
             return favorites;

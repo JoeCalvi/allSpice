@@ -1,13 +1,13 @@
 import { AppState } from "../AppState.js";
-import { Recipe } from "../models/Recipe.js";
 import { logger } from "../utils/Logger.js";
+import Pop from "../utils/Pop.js";
 import { api } from "./AxiosService.js";
 
 class RecipesService {
 
     async getAllRecipes() {
         const res = await api.get('api/recipes')
-        AppState.recipes = res.data.map(r => new Recipe(r))
+        AppState.recipes = res.data
         logger.log(AppState.recipes)
     }
 
@@ -27,22 +27,27 @@ class RecipesService {
     }
 
     async getMyFavorites() {
+
         const res = await api.get('account/favorites')
-        AppState.favorites = res.data.filter(f => f.accountId == AppState.account.id)
+        AppState.favorites = res.data
         logger.log(AppState.favorites)
     }
     async favoriteRecipe(recipeId) {
-        await api.put(`api/recipes/${recipeId}`, { favorited: true })
-        let recipe = AppState.recipes.find(r => r.id == recipeId)
-        recipe.favorited = true
-
         const res = await api.post(`api/favorites`, { recipeId })
         AppState.favorites.push(res.data)
     }
 
     async unfavoriteRecipe(favoriteId) {
-        const res = await api.delete(`api/favorites/${favoriteId}`)
-        logger.log(res.data)
+        let favoriteIndex = AppState.favorites.findIndex(f => f.id == favoriteId)
+        logger.log("favoriteIndex:", favoriteIndex)
+        if (favoriteIndex == -1) {
+            Pop.toast("Recipe not in favorites.", "info", "center", 3000, true)
+            return
+        } else {
+            const res = await api.delete(`api/favorites/${favoriteId}`)
+            AppState.favorites.splice(favoriteIndex, 1)
+            logger.log('res.data:', res.data, 'Appstate favs:', AppState.favorites)
+        }
     }
 }
 

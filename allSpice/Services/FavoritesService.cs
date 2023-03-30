@@ -27,10 +27,10 @@ namespace allSpice.Services
             return "Recipe unfavorited.";
         }
 
-        internal List<Favorite> GetFavorites()
+        internal List<Favorite> GetFavorites(Account userInfo)
         {
 
-            List<Favorite> favorites = _repo.GetFavorites();
+            List<Favorite> favorites = _repo.GetFavorites(userInfo);
             return favorites;
         }
 

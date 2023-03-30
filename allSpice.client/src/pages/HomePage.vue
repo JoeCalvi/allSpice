@@ -12,7 +12,7 @@ import Modal from '../components/Modal.vue';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import { recipesService } from "../services/RecipesService.js";
-import { onMounted, computed } from 'vue';
+import { onMounted, computed, watchEffect } from 'vue';
 import { AppState } from '../AppState';
 
 export default {
@@ -29,6 +29,11 @@ export default {
 
     onMounted(() => {
       getAllRecipes();
+
+    })
+
+    watchEffect(() => {
+      if (AppState.account.id) { recipesService.getMyFavorites() }
     })
 
     return {

@@ -19,7 +19,6 @@ CREATE TABLE IF NOT EXISTS recipes(
   title VARCHAR(80) NOT NULL COMMENT 'Recipe Title',
   instructions VARCHAR(1000) NOT NULL COMMENT 'Recipe Instructions',
   img VARCHAR(500) NOT NULL COMMENT 'Recipe Image',
-  favorited BOOLEAN DEFAULT false,
   category VARCHAR(50) NOT NULL COMMENT 'Recipe Category',
 
   FOREIGN KEY (creatorId) REFERENCES accounts(id) ON DELETE CASCADE
