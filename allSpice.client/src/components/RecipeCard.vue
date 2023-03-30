@@ -16,9 +16,20 @@
                                 class="mdi mdi-heart text-danger selectable"></i>
                             <i v-else-if="recipe?.creatorId != account?.id" @click="favoriteRecipe(`${recipe?.id}`)"
                                 class="mdi mdi-heart-outline selectable"></i>
-                            <button v-else-if="recipe?.creatorId == account?.id" class="btn btn-outline danger"
-                                @click="deleteRecipe(`${recipe?.id}`)"><i
-                                    class="mdi mdi-trash-can text-danger"></i></button>
+                            <div v-else-if="recipe?.creatorId == account?.id" class="dropstart">
+                                <button class="btn btn-outline text-white text-center" type="button"
+                                    data-bs-toggle="dropdown" aria-expanded="false">...
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><button class="dropdown-item" @click="setActiveRecipe(`${recipe?.id}`)"
+                                            type="button" data-bs-toggle="modal" data-bs-target="#edit-recipe"><i
+                                                class="mdi mdi-pencil"></i> Edit
+                                            Recipe</button>
+                                    </li>
+                                    <li><button class="dropdown-item" @click="deleteRecipe(`${recipe?.id}`)"><i
+                                                class="mdi mdi-trash-can text-danger"></i> Delete Recipe</button></li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -40,6 +51,10 @@
     <Modal id="recipe-details">
         <RecipeDetails />
     </Modal>
+
+    <Modal id="edit-recipe">
+        <EditRecipeForm />
+    </Modal>
 </template>
 
 
@@ -50,6 +65,7 @@ import { recipesService } from '../services/RecipesService.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
 import RecipeDetails from './RecipeDetails.vue';
+import EditRecipeForm from './EditRecipeForm.vue'
 
 export default {
     props: { recipe: { type: Object, required: true } },
@@ -95,7 +111,7 @@ export default {
             }
         };
     },
-    components: { RecipeDetails }
+    components: { RecipeDetails, EditRecipeForm }
 }
 </script>
 
