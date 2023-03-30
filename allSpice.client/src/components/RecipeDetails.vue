@@ -4,9 +4,10 @@
             <div class="row">
                 <div :style="`background-image: url(${recipe?.img})`"
                     class="col-lg-4 recipe-img rounded-start d-flex justify-content-end">
-                    <div class="card favorite-heart d-flex justify-content-center align-items-center">
-                        <i v-if="favorite?.recipeId == recipe?.id && favorite?.accountId == account?.id"
-                            @click="unfavoriteRecipe(`${favorite?.id}`)" class="mdi mdi-heart text-danger selectable"></i>
+                    <div v-if="recipe?.creatorId != account?.id"
+                        class="card favorite-heart d-flex justify-content-center align-items-center">
+                        <i v-if="favorite" @click="unfavoriteRecipe(`${favorite?.id}`)"
+                            class="mdi mdi-heart text-danger selectable"></i>
                         <i v-else @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
                     </div>
                 </div>

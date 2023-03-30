@@ -4,6 +4,14 @@
       <RecipeCardVue v-for="recipe in recipes" :recipe="recipe" />
     </div>
   </div>
+
+
+  <Modal id="recipe-details">
+    <RecipeDetails />
+  </Modal>
+  <Modal id="edit-recipe">
+    <EditRecipeForm />
+  </Modal>
 </template>
 
 <script>

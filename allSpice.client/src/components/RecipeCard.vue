@@ -4,9 +4,10 @@
             <div class="col-md-12 recipe-card-height d-flex flex-column justify-content-between">
                 <div class="row justify-content-between align-items-center">
                     <div class="col-4">
-                        <div
+                        <div @click="searchRecipes(`${recipe?.category}`)"
                             class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill selectable">
-                            <span class="p-1 text-center">{{ recipe?.category }}</span>
+                            <span class="p-1 text-center">{{ recipe?.category
+                            }}</span>
                         </div>
                     </div>
                     <div class="col-2">
@@ -48,13 +49,6 @@
             </div>
         </div>
     </div>
-    <Modal id="recipe-details">
-        <RecipeDetails />
-    </Modal>
-
-    <Modal id="edit-recipe">
-        <EditRecipeForm />
-    </Modal>
 </template>
 
 
@@ -108,6 +102,10 @@ export default {
                     logger.error(error)
                     Pop.error(error)
                 }
+            },
+
+            searchRecipes(query) {
+                recipesService.searchRecipes({ query })
             }
         };
     },

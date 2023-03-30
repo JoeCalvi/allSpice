@@ -60,9 +60,12 @@ class RecipesService {
     async editInstructions(recipeId, instructionsData) {
         const res = await api.put(`api/recipes/${recipeId}`, instructionsData)
         AppState.activeRecipe = res.data
+        let recipeIndex = AppState.recipes.findIndex(r => r.id == recipeId)
+        AppState.recipes.splice(recipeIndex, 1, res.data)
     }
 
     searchRecipes(query) {
+        logger.log(query)
         let results = AppState.recipes.filter(r => r.category.toLowerCase() == query.query.toLowerCase())
         results.forEach(r => {
             let index = AppState.recipes.indexOf(r)

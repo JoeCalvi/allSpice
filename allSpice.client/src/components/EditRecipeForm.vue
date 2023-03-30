@@ -58,7 +58,7 @@
 
 
 <script>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { AppState } from '../AppState.js';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
@@ -71,6 +71,11 @@ export default {
     setup() {
         const editableIngredient = ref({})
         const editableInstructions = ref({})
+
+        watchEffect(() => {
+            logger.log(AppState.activeRecipe)
+            editableInstructions.value = { ...AppState.activeRecipe }
+        })
 
         return {
             recipe: computed(() => AppState.activeRecipe),
