@@ -8,5 +8,6 @@ export const AppState = reactive({
   recipes: [],
   myRecipes: [],
   activeRecipe: null,
-  ingredients: []
+  ingredients: [],
+  favorites: []
 })

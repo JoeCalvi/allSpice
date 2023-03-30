@@ -1,4 +1,5 @@
-import { AppState } from "../AppState";
+import { AppState } from "../AppState.js";
+import { Recipe } from "../models/Recipe.js";
 import { logger } from "../utils/Logger.js";
 import { api } from "./AxiosService.js";
 
@@ -6,7 +7,7 @@ class RecipesService {
 
     async getAllRecipes() {
         const res = await api.get('api/recipes')
-        AppState.recipes = res.data
+        AppState.recipes = res.data.map(r => new Recipe(r))
         logger.log(AppState.recipes)
     }
 
@@ -23,6 +24,24 @@ class RecipesService {
     async getIngredientsByRecipeId(recipeId) {
         const res = await api.get(`api/recipes/${recipeId}/ingredients`)
         AppState.ingredients = res.data
+    }
+
+    async getMyFavorites() {
+        const res = await api.get('account/favorites')
+        AppState.favorites = res.data
+        logger.log(AppState.favorites)
+    }
+    async favoriteRecipe(recipeId) {
+        let recipe = AppState.recipes.find(r => r.id == recipeId)
+        recipe.favorited = true
+
+        const res = await api.post(`api/favorites`, { recipeId })
+        AppState.favorites.push(res.data)
+    }
+
+    async unfavoriteRecipe(favoriteId) {
+        const res = await api.delete(`api/favorites/${favoriteId}`)
+        logger.log(res.data)
     }
 }
 

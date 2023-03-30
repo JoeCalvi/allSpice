@@ -8,8 +8,8 @@
     </div>
     <router-view />
   </main>
-  <footer class="sticky-bottom d-flex justify-content-end mb-5">
-    <div class="pe-4">
+  <footer class="sticky-bottom d-flex justify-content-end">
+    <div class="pe-3">
       <button class="btn btn-success new-recipe-button rounded-circle d-flex justify-content-center align-items-center"><i
           class="mdi mdi-plus"></i></button>
     </div>
@@ -46,7 +46,7 @@ export default {
 footer {
   display: grid;
   place-content: center;
-  height: 40px;
+  height: 12vh;
 }
 
 .new-recipe-button {

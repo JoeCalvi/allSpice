@@ -11,7 +11,7 @@
                     </div>
                     <div class="col-2">
                         <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
-                            <i class="mdi mdi-heart-outline selectable"></i>
+                            <i @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
                         </div>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                             <h5>{{ recipe?.title }}</h5>
                         </div>
                         <div class="mb-2 pb-1">
-                            <span>added by <span class="creator-font">{{ recipe?.creator.name }}</span></span>
+                            <span>added by <span class="creator-font">{{ recipe.creator?.name }}</span></span>
                         </div>
                     </div>
                 </div>
@@ -36,8 +36,11 @@
 
 
 <script>
+import { computed } from 'vue';
 import { AppState } from '../AppState.js';
 import { recipesService } from '../services/RecipesService.js';
+import { logger } from '../utils/Logger.js';
+import Pop from '../utils/Pop.js';
 import RecipeDetails from './RecipeDetails.vue';
 
 export default {
@@ -45,10 +48,30 @@ export default {
 
     setup() {
         return {
+            favorites: computed(() => AppState.favorites),
+
             async setActiveRecipe(recipeId) {
                 AppState.activeRecipe = null
                 recipesService.setActiveRecipe(recipeId)
                 await recipesService.getIngredientsByRecipeId(recipeId)
+            },
+
+            async favoriteRecipe(recipeId) {
+                try {
+                    await recipesService.favoriteRecipe(recipeId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
+            },
+
+            async unfavoriteRecipe(favoriteId) {
+                try {
+                    await recipesService.unfavoriteRecipe(favoriteId)
+                } catch (error) {
+                    logger.error(error)
+                    Pop.error(error)
+                }
             }
         };
     },
