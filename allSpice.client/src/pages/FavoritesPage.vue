@@ -6,6 +6,13 @@
             </div>
         </div>
     </div>
+
+    <Modal id="recipe-details">
+        <RecipeDetails />
+    </Modal>
+    <Modal id="edit-recipe">
+        <EditRecipeForm />
+    </Modal>
 </template>
 
 
@@ -16,6 +23,7 @@ import RecipeCard from '../components/RecipeCard.vue';
 import { recipesService } from '../services/RecipesService';
 import { logger } from '../utils/Logger.js';
 import Pop from '../utils/Pop.js';
+import Modal from '../components/Modal.vue';
 
 export default {
     setup() {
@@ -36,10 +44,11 @@ export default {
             if (AppState.account.id) { recipesService.getMyFavorites() }
         })
         return {
-            favorites: computed(() => AppState.favorites)
+            favorites: computed(() => AppState.favorites),
+            recipes: computed(() => AppState.recipes)
         };
     },
-    components: { RecipeCard }
+    components: { RecipeCard, Modal }
 }
 </script>
 

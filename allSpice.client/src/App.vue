@@ -10,7 +10,8 @@
   </main>
   <footer class="sticky-bottom d-flex justify-content-end">
     <div class="pe-3">
-      <button class="btn btn-success new-recipe-button rounded-circle d-flex justify-content-center align-items-center"><i
+      <button title="Add New Recipe" :disabled="!account?.id"
+        class="btn btn-success new-recipe-button rounded-circle d-flex justify-content-center align-items-center"><i
           class="mdi mdi-plus" data-bs-toggle="modal" data-bs-target="#new-recipe"></i></button>
     </div>
   </footer>
@@ -33,7 +34,8 @@ import { recipesService } from './services/RecipesService'
 export default {
   setup() {
     return {
-      appState: computed(() => AppState)
+      appState: computed(() => AppState),
+      account: computed(() => AppState.account)
     }
   },
   components: { Navbar, Login, CoverPhoto, Modal, NewRecipeForm }

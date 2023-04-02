@@ -4,11 +4,13 @@
             <div class="row">
                 <div :style="`background-image: url(${recipe?.img})`"
                     class="col-lg-4 recipe-img rounded-start d-flex justify-content-end">
-                    <div v-if="recipe?.creatorId != account?.id"
-                        class="card favorite-heart d-flex justify-content-center align-items-center">
-                        <i v-if="favorite" @click="unfavoriteRecipe(`${favorite?.id}`)"
-                            class="mdi mdi-heart text-danger selectable"></i>
-                        <i v-else @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
+                    <div v-if="account?.id">
+                        <div v-if="recipe?.creatorId != account?.id"
+                            class="card favorite-heart d-flex justify-content-center align-items-center">
+                            <i v-if="favorite" @click="unfavoriteRecipe(`${favorite?.id}`)"
+                                class="mdi mdi-heart text-danger selectable"></i>
+                            <i v-else @click="favoriteRecipe(`${recipe?.id}`)" class="mdi mdi-heart-outline selectable"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="col-lg-8 d-flex flex-column justify-content-between">

@@ -7,23 +7,30 @@
         </router-link>
       </div>
       <div class="col-md-4 text-center ">
-        <router-link class="nav-link" :to="{ name: 'MyRecipes' }">
+        <router-link v-if="account?.id" class="nav-link" :to="{ name: 'MyRecipes' }">
           My Recipes
         </router-link>
+        <div class="nav-link text-dark" title="Must Be Logged In To Access" v-else>My Recipes</div>
       </div>
       <div class="col-md-4 text-center">
-        <router-link class="nav-link" :to="{ name: 'Favorites' }">
+        <router-link v-if="account?.id" class="nav-link" :to="{ name: 'Favorites' }">
           Favorites
         </router-link>
+        <div class="nav-link text-dark" title="Must Be Logged In To Access" v-else>Favorites</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { computed } from 'vue';
+import { AppState } from '../AppState.js';
+
 export default {
   setup() {
-    return {}
+    return {
+      account: computed(() => AppState.account)
+    }
   }
 }
 </script>

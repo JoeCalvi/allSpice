@@ -6,11 +6,11 @@
                     <div class="col-4">
                         <div @click="searchRecipes(`${recipe?.category}`)"
                             class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill selectable">
-                            <span class="p-1 text-center">{{ recipe?.category
+                            <span title="Bring Recipes of This Category to Top" class="p-1 text-center">{{ recipe?.category
                             }}</span>
                         </div>
                     </div>
-                    <div class="col-2">
+                    <div v-if="account?.id" class="col-2">
                         <div class="glass-card d-flex justify-content-center align-items-center m-1 rounded-pill">
                             <i v-if="favorite?.recipeId == recipe?.id && favorite?.accountId == account?.id && recipe?.creatorId != account?.id"
                                 @click="unfavoriteRecipe(`${favorite?.id}`)"
@@ -34,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row justify-content-center">
+                <div title="See Recipe Details" class="row justify-content-center">
                     <div @click="setActiveRecipe(`${recipe?.id}`)" class="col-md-11 glass-card rounded mb-2 selectable"
                         data-bs-toggle="modal" data-bs-target="#recipe-details">
                         <div class="mt-2 d-flex justify-content-between">

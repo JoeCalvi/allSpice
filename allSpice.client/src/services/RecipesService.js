@@ -47,7 +47,6 @@ class RecipesService {
 
     async unfavoriteRecipe(favoriteId) {
         let favoriteIndex = AppState.favorites.findIndex(f => f.id == favoriteId)
-        logger.log("favoriteIndex:", favoriteIndex)
         if (favoriteIndex == -1) {
             Pop.toast("Recipe not in favorites.", "info", "center", 3000, true)
             return
@@ -65,7 +64,6 @@ class RecipesService {
     }
 
     searchRecipes(query) {
-        logger.log(query)
         let results = AppState.recipes.filter(r => r.category.toLowerCase() == query.query.toLowerCase())
         results.forEach(r => {
             let index = AppState.recipes.indexOf(r)

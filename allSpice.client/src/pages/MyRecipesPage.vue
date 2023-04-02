@@ -6,6 +6,13 @@
             </div>
         </div>
     </div>
+
+    <Modal id="recipe-details">
+        <RecipeDetails />
+    </Modal>
+    <Modal id="edit-recipe">
+        <EditRecipeForm />
+    </Modal>
 </template>
 
 
@@ -16,6 +23,7 @@ import RecipeCard from '../components/RecipeCard.vue';
 import { recipesService } from '../services/RecipesService';
 import { logger } from '../utils/Logger';
 import Pop from '../utils/Pop';
+import Modal from '../components/Modal.vue';
 
 export default {
     setup() {
@@ -41,7 +49,7 @@ export default {
             myRecipes: computed(() => AppState.myRecipes)
         };
     },
-    components: { RecipeCard }
+    components: { RecipeCard, Modal }
 }
 </script>
 
